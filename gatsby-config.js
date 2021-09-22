@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://in-info-web4.informatics.iupui.edu/~hicksjc/todo-list",
+    siteUrl: "https://in-info-web4.informatics.iupui.edu/~hicksjc/N322/todo-list",
     title: "Todo List",
   },
   plugins: [],
-  pathPrefix: '/~hicksjc/todo-list'
+  pathPrefix: '/~hicksjc/N322/todo-list'
 };
