@@ -2,7 +2,7 @@
 
 James Hicks
 
-Live link: [Todo List App](http://localhost:8000)
+Live link: [Todo List App](https://in-info-web4.informatics.iupui.edu/~hicksjc/todo-list)
 
 adding changes to github
 
