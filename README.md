@@ -2,7 +2,7 @@
 
 James Hicks
 
-Live link: [Todo List App](https://in-info-web4.informatics.iupui.edu/~hicksjc/N322/todo-list)
+Live link: https://in-info-web4.informatics.iupui.edu/~hicksjc/N322/todo-list
 
 adding changes to github
 
