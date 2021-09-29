@@ -3,20 +3,25 @@ import 'semantic-ui-css/semantic.css';
 import {Header, Container, Button, Grid, List} from 'semantic-ui-react';
 import Task from '../componenets/Task';
 import NewTaskForm from '../componenets/NewTaskForm';
+import EditTaskForm from '../componenets/editTask';
+
 const HomePage = () => {
 
   const initialNewTask = {
     name: '',
     color: '',
+    description: ''
   };
 
   const [newTaskOpen, setNewTaskOpen] = React.useState(true);
+  
 
 
   // Assigning a varaible and setter to be used for later when a condition is true.
   const [newTask, setNewTask] = React.useState({
     name: '',
     color: '',
+    description: ''
   });
 
   const [list, setList] = React.useState([]);
@@ -29,36 +34,60 @@ const HomePage = () => {
     setNewTaskOpen(false);
   }
 
+const listClone = [...list];
+
   function addNewTask() {
-    const listClone = [...list];
+    
     listClone.push(newTask);
     setList(listClone);
     setNewTask(initialNewTask);
     closeNewTask();
   }
-  
-  // const taskList = [];
 
-  // list.forEach((task, index) => {
-  //   taskList.push(
-  //     <Task key={`${task.name}-${index}`} name={task.name} color={task.color}/>
-  //   ) 
-  // });
-  function editTask(index) {
-    console.log('edit', index);
-    const newList = list.map((task, i) =>{
-      if(i !== index) return task;
-      return {
-        name: `Edit ${task.name}`,
-        color: task.color,
+  //State tp know if we are editing
+
+  const [openEditForm, setEditForm] = React.useState(false);
+
+  const [currentTodo, setCurrentTodo] = React.useState({});
+
+
+
+  function openEditTaskForm(currentTask) {
+    setEditForm(true);
+    setCurrentTodo(currentTask);
+  }
+  function closeEditTaskForm() {
+    setEditForm(false);
+    setCurrentTodo({});
+  }
+
+  //get the value of the edit input and set the new state
+  function editCurrentTask(e) {
+    //set the neew state value to what's currently in the edit input box
+    
+    console.log(currentTodo);
+    const newList = list.map((task, i) => {
+      // return tasks that we're not updating
+      if(i !== currentTodo.index) {
+        return task;
+      }
+      // return the updated task
+      else {
+        return currentTodo;
       }
     })
     setList(newList);
+    closeEditTaskForm();
   }
 
-
-  function deleteTask() {
-    // Array.filter
+  function deleteTask(index){
+    //Array.filter
+   const  getridof = list.filter((name, i) => {
+     // return true for elements we want to keep
+    return i !== index;
+   });
+   console.log(getridof);
+   setList(getridof);
   }
 
   const taskList = list.map((task, index) => {
@@ -66,8 +95,11 @@ const HomePage = () => {
               key={`${task.name}-${index}`} 
               name={task.name} 
               color={task.color}
-              editTask={editTask}
+              description={task.description}
+              editCurrentTask={editCurrentTask}
               index={index}
+              openEditTaskForm={openEditTaskForm}
+              deleteTask= {deleteTask}
             />
     );
   });
@@ -96,6 +128,15 @@ const HomePage = () => {
           setNewTask = {setNewTask}
           addNewTask={addNewTask}/>
         ) : null}
+
+        {openEditForm ? (
+          <EditTaskForm
+          closeEditTaskForm={closeEditTaskForm}
+          setCurrentTodo={setCurrentTodo}
+          currentTodo={currentTodo}
+          editCurrentTask={editCurrentTask}
+          />
+        ): null}
 
 
         <List>

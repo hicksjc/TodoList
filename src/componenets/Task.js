@@ -1,10 +1,18 @@
 import React from "react";
 import {List, Grid, Label, Button} from 'semantic-ui-react';
 
-const Task = ({ name, color, editTask, index }) =>{
-    //console.log(name, color);
+const Task = ({ name, color, description, editTask, index, deleteTask, openEditTaskForm }) =>{
+    function deleteCurrentTask(){
+      deleteTask(index);
+    }
+
     function editCurrentTask() {
-      editTask(index);
+      openEditTaskForm({
+        index,
+        name,
+        color,
+        description
+      })
     }
     return(
         <React.Fragment>
@@ -13,10 +21,11 @@ const Task = ({ name, color, editTask, index }) =>{
               <Grid.Column>
                 <Label color={color} size='big'>
                   {name}
+                  <List.Description>{description}</List.Description>
                 </Label>
                 </Grid.Column>
               <Grid.Column textAlign='right'>
-                <Button icon="trash" color='red'></Button>
+                <Button icon="trash" color='red' onClick={deleteCurrentTask}></Button>
             <Button icon='pencil' color='orange' onClick={editCurrentTask}></Button>
               </Grid.Column>
             </Grid>
